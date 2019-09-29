@@ -3,14 +3,16 @@ package com.example.demo.service;
 import com.example.demo.model.Customer;
 
 import java.util.List;
+import java.util.Optional;
+
 
 public interface CustomerService {
 
-    List<Customer> getCustomers();
+    List<Customer> getAllCustomers();
 
-    Customer addCustomer(Customer customer);
+    void deleteCustomer(int id);
 
-    List<Customer> deleteCustomer(int id);
+    Optional<Customer> getCustomerById(int id);
 
-    List<Customer> updateCustomer(int id, Customer customer);
+    Customer save(Customer customer);
 }

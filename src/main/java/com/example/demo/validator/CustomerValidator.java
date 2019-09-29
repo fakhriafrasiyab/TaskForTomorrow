@@ -15,15 +15,7 @@ import java.util.*;
 @ControllerAdvice
 public class CustomerValidator extends ResponseEntityExceptionHandler {
 
-    /*protected ResponseEntity<Object> handleMethod(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus httpStatus, WebRequest request) {
-        Map<String, Object> exceptionMapBody = new LinkedHashMap<>();
-        exceptionMapBody.put("timestamp", new Date());
-        exceptionMapBody.put("HTTP status", httpStatus.value());
 
-        List<String> errors = ex.getBindingResult().getFieldErrors().stream().map(x -> x.getDefaultMessage()).collect(Collectors.toList());
-        exceptionMapBody.put("errors",errors);
-        return new ResponseEntity<>(exceptionMapBody,headers,httpStatus);
-    }*/
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {

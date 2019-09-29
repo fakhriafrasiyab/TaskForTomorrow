@@ -1,56 +1,66 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.CustomerDTO;
-import com.example.demo.mapper.ModelMapperClass;
+import com.example.demo.mapper.CustomerMapper;
+import com.example.demo.mapper.CustomerMapperImpl;
 import com.example.demo.model.Customer;
 import com.example.demo.service.CustomerService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/customers")
 public class CustomerController {
 
     @Autowired
-    private CustomerService customerService;
+    CustomerService customerService;
+
+
+    CustomerMapper customerMapper;
+
+//    public CustomerController() {
+//        this.customerMapper = new CustomerMapperImpl();
+//    }
+
 
     @GetMapping(value = "/all")
-    public List<Customer> getAll() {
-        return customerService.getCustomers();
+    public ResponseEntity<List<CustomerDTO>> getAll() {
+        return ResponseEntity.ok(customerMapper.toCustomerDTOs(customerService.getAllCustomers()));
     }
 
     @PostMapping(value = "/add")
-    @ResponseBody
-    public List<CustomerDTO> addCustomer(@Valid @RequestBody List<CustomerDTO> customerDTOList) {
-        ModelMapperClass modelMapperClass = new ModelMapperClass();
-        List<Customer> customerList = new ArrayList<>();
-
-        for (CustomerDTO customerDTO: customerDTOList){
-            Customer customer = modelMapperClass.convertToEntity(customerDTO);
-            Customer customerCreated = customerService.addCustomer(customer);
-            customerList.add(customerCreated);
-        }
-
-        List<CustomerDTO> custDTOList = new ArrayList<>();
-        for (Customer customer: customerList){
-            custDTOList.add(modelMapperClass.convertDto(customer));
-        }
-
-        return custDTOList;
+    public ResponseEntity<CustomerDTO> addCustomer(@RequestBody CustomerDTO customerDTO) {
+        customerService.save(customerMapper.toCustomerEntity(customerDTO));
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerDTO);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public List<Customer> deleteCustomer(@PathVariable("id") int id) {
-        return customerService.deleteCustomer(id);
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable("id") int id) {
+        Optional<Customer> customer = customerService.getCustomerById(id);
+        return ResponseEntity.ok(customerMapper.toCustomerDTO(customer.get()));
     }
 
     @PutMapping(value = "/update/{id}")
-    public List<Customer> updateCustomer(@PathVariable("id") int id, @RequestBody Customer customer) {
-        return customerService.updateCustomer(id, customer);
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") int id, @RequestBody CustomerDTO customerDTO) {
+        Customer customer = customerMapper.toCustomerEntity(customerDTO);
+        customer.setId(id);
+        customerService.save(customer);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDTO);
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity deleteCustomer(@PathVariable("id") int id) {
+        customerService.deleteCustomer(id);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 }

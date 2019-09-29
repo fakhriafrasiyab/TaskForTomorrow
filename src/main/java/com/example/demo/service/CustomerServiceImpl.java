@@ -1,14 +1,15 @@
 package com.example.demo.service;
 
-
 import com.example.demo.model.Customer;
 import com.example.demo.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-
+@RequiredArgsConstructor
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -16,29 +17,22 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
+    @Override
+    public Optional<Customer> getCustomerById(int id) {
+        return customerRepository.findById(id);
+    }
 
     @Override
-    public Customer addCustomer(Customer customer) {
+    public Customer save(Customer customer) {
         return customerRepository.save(customer);
     }
 
-
     @Override
-    public List<Customer> deleteCustomer(int id) {
+    public void deleteCustomer(int id) {
         customerRepository.deleteById(id);
-        return customerRepository.findAll();
     }
-
-    @Override
-    public List<Customer> updateCustomer(int id, Customer customer) {
-        customer.setId(id);
-        customerRepository.save(customer);
-        return customerRepository.findAll();
-    }
-
-
 }
