@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1503460396396-5" author="Kishank (generated)">
+        <addColumn tableName="account">
+            <column name="balance" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="1503460396396-6" author="Kishank (generated)">
+        <insert tableName="account">
+            <column name="accountant_name" value="Elvin"></column>
+            <column name="balance" value="570"></column>
+        </insert>
+        <insert tableName="account">
+            <column name="accountant_name" value="Farid"></column>
+            <column name="balance" value="4000"></column>
+        </insert>
+        <insert tableName="account">
+            <column name="accountant_name" value="Mehdi"></column>
+            <column name="balance" value="500"></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

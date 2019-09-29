@@ -1,11 +1,12 @@
-package com.example.demo.dto;
+package com.example.demo.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class CustomerDTO {
+public class Account {
+
     private Integer id;
     private String name;
 

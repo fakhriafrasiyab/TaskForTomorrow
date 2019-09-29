@@ -8,7 +8,7 @@ public interface CustomerService {
 
     List<Customer> getCustomers();
 
-    List<Customer> addCustomer(Customer customer);
+    Customer addCustomer(Customer customer);
 
     List<Customer> deleteCustomer(int id);
 

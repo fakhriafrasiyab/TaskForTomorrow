@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,21 +19,29 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-
-    ModelMapperClass modelMapperClass;
-
     @GetMapping(value = "/all")
     public List<Customer> getAll() {
         return customerService.getCustomers();
     }
 
     @PostMapping(value = "/add")
-    public List<CustomerDTO> addCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
-        //System.out.println(customerDTO.getName());
-        modelMapperClass = new ModelMapperClass();
-        Customer customer = modelMapperClass.convertToEntity(customerDTO);
-        Customer customerCreated = (Customer) customerService.addCustomer(customer);
-        return (List<CustomerDTO>) modelMapperClass.convertDto(customerCreated);
+    @ResponseBody
+    public List<CustomerDTO> addCustomer(@Valid @RequestBody List<CustomerDTO> customerDTOList) {
+        ModelMapperClass modelMapperClass = new ModelMapperClass();
+        List<Customer> customerList = new ArrayList<>();
+
+        for (CustomerDTO customerDTO: customerDTOList){
+            Customer customer = modelMapperClass.convertToEntity(customerDTO);
+            Customer customerCreated = customerService.addCustomer(customer);
+            customerList.add(customerCreated);
+        }
+
+        List<CustomerDTO> custDTOList = new ArrayList<>();
+        for (Customer customer: customerList){
+            custDTOList.add(modelMapperClass.convertDto(customer));
+        }
+
+        return custDTOList;
     }
 
     @DeleteMapping(value = "/delete/{id}")
