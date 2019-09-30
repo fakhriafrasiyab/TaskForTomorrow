@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @RestController
 @RequestMapping(value = "/customers")
 public class CustomerController {
@@ -28,31 +28,32 @@ public class CustomerController {
 
     CustomerMapper customerMapper;
 
-//    public CustomerController() {
-//        this.customerMapper = new CustomerMapperImpl();
-//    }
+    public CustomerController() {
+        this.customerMapper = new CustomerMapperImpl();
+    }
 
 
     @GetMapping(value = "/all")
     public ResponseEntity<List<CustomerDTO>> getAll() {
-        return ResponseEntity.ok(customerMapper.toCustomerDTOs(customerService.getAllCustomers()));
+        return ResponseEntity.ok(customerMapper.INSTANCE.toCustomerDTOs(customerService.getAllCustomers()));
+//        return ResponseEntity.ok((customerService.getAllCustomers()));
     }
 
     @PostMapping(value = "/add")
     public ResponseEntity<CustomerDTO> addCustomer(@RequestBody CustomerDTO customerDTO) {
-        customerService.save(customerMapper.toCustomerEntity(customerDTO));
+        customerService.save(customerMapper.INSTANCE.toCustomerEntity(customerDTO));
         return ResponseEntity.status(HttpStatus.CREATED).body(customerDTO);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable("id") int id) {
         Optional<Customer> customer = customerService.getCustomerById(id);
-        return ResponseEntity.ok(customerMapper.toCustomerDTO(customer.get()));
+        return ResponseEntity.ok(customerMapper.INSTANCE.toCustomerDTO(customer.get()));
     }
 
     @PutMapping(value = "/update/{id}")
     public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") int id, @RequestBody CustomerDTO customerDTO) {
-        Customer customer = customerMapper.toCustomerEntity(customerDTO);
+        Customer customer = customerMapper.INSTANCE.toCustomerEntity(customerDTO);
         customer.setId(id);
         customerService.save(customer);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDTO);
