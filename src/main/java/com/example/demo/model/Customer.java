@@ -24,6 +24,17 @@ public class Customer {
 //    @Size(min = 2, max = 12, message = "Name should have at least 2 characters")
     private String name;
 
+//    @OneToMany
+//    private Account account;
+//
+//    public Account getAccount() {
+//        return account;
+//    }
+//
+//    public void setAccount(Account account) {
+//        this.account = account;
+//    }
+
     public void setId(int id) {
         this.id = id;
     }

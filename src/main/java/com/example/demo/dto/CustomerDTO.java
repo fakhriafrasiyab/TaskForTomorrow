@@ -1,5 +1,6 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Account;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,11 @@ import lombok.Setter;
 @Data
 public class CustomerDTO {
     private int id;
+
+    private String name;
+
+    private Account account;
+
 
     public int getId() {
         return id;
@@ -16,8 +22,13 @@ public class CustomerDTO {
         this.id = id;
     }
 
-    private String name;
+    public Account getAccount() {
+        return account;
+    }
 
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
     public String getName() {
         return name;

@@ -1,6 +1,8 @@
 package com.example.demo.mapper;
 
+import com.example.demo.dto.AccountDTO;
 import com.example.demo.dto.CustomerDTO;
+import com.example.demo.model.Account;
 import com.example.demo.model.Customer;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -17,4 +19,5 @@ public interface CustomerMapper {
     List<CustomerDTO> toCustomerDTOs(List<Customer> customers);
 
     Customer toCustomerEntity(CustomerDTO customerDTO);
+
 }

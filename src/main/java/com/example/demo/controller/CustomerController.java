@@ -36,7 +36,7 @@ public class CustomerController {
     @GetMapping(value = "/all")
     public ResponseEntity<List<CustomerDTO>> getAll() {
         return ResponseEntity.ok(customerMapper.INSTANCE.toCustomerDTOs(customerService.getAllCustomers()));
-//        return ResponseEntity.ok((customerService.getAllCustomers()));
+
     }
 
     @PostMapping(value = "/add")
@@ -59,9 +59,9 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(customerDTO);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity deleteCustomer(@PathVariable("id") int id) {
-        customerService.deleteCustomer(id);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
-    }
+        @DeleteMapping(value = "/delete/{id}")
+        public ResponseEntity deleteCustomer(@PathVariable("id") int id) {
+            customerService.deleteCustomer(id);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        }
 }
