@@ -8,7 +8,8 @@
     <changeSet id="1503460396396-5" author="Kishank (generated)">
         <addColumn tableName="account">
             <column  autoIncrement="true" name="customer_id" type="INT">
-                <constraints foreignKeyName="true" />
+                <constraints foreignKeyName="true" referencedTableName="customer" />
+<!--                <constraints foreignKeyName="true"></constraints>-->
             </column>
         </addColumn>
     </changeSet>

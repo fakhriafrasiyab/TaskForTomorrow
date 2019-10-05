@@ -1,34 +1,45 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <changeSet author="Kishank (generated)" id="1503460396396-1">
         <createTable tableName="account">
             <column autoIncrement="true" name="id" type="INT">
-                <constraints primaryKey="true" />
+                <constraints primaryKey="true"/>
             </column>
-            <column name="accountant_name" type="VARCHAR(255)" />
+            <column name="accountant_name" type="VARCHAR(255)"/>
+
+            <column name="create_date" type="TIMESTAMP" defaultValue="now()">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="update_date" type="TIMESTAMP">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 
     <changeSet id="1503460396396-5" author="Kishank (generated)">
         <addColumn tableName="account">
-            <column name="balance" type="varchar(50)"/>
+            <column name="balance" type="DECIMAL(11,2)" defaultValue="0">
+                <constraints nullable="true"/>
+            </column>
         </addColumn>
     </changeSet>
 
     <changeSet id="1503460396396-6" author="Kishank (generated)">
         <insert tableName="account">
             <column name="accountant_name" value="Elvin"></column>
-            <column name="balance" value="570"></column>
+            <column name="balance" value="560"></column>
         </insert>
         <insert tableName="account">
-            <column name="accountant_name" value="Farid"></column>
+            <column name="accountant_name" value="Ayxan"></column>
             <column name="balance" value="4000"></column>
         </insert>
         <insert tableName="account">
-            <column name="accountant_name" value="Mehdi"></column>
+            <column name="accountant_name" value="Davud"></column>
             <column name="balance" value="500"></column>
         </insert>
     </changeSet>

@@ -1,7 +1,5 @@
 package com.example.demo.mapper;
 
-import com.example.demo.dto.CustomerDTO;
-import com.example.demo.model.Customer;
 //import org.modelmapper.ModelMapper;
 
 public class ModelMapperClass {

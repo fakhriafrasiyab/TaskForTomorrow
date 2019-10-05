@@ -5,9 +5,8 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
-public class ErrorResponse {
+
+public class ErrorResponse extends Throwable {
 
     private String message;
     private List<String> details;
@@ -18,5 +17,23 @@ public class ErrorResponse {
         this.details = details;
     }
 
+    public ErrorResponse(String message) {
+        this.message = message;
+    }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public List<String> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<String> details) {
+        this.details = details;
+    }
 }

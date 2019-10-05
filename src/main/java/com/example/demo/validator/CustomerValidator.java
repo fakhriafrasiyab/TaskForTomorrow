@@ -15,8 +15,6 @@ import java.util.*;
 @ControllerAdvice
 public class CustomerValidator extends ResponseEntityExceptionHandler {
 
-
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> details = new ArrayList<>();

@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Customer;
+import com.example.demo.model.entity.Customer;
 import com.example.demo.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -30,7 +30,6 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer save(Customer customer) {
         return customerRepository.save(customer);
     }
-
 
     @Override
     public void deleteCustomer(int id) {
